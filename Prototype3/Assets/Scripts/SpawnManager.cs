@@ -1,11 +1,10 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
     //Prefab for the obstacle to spawn
-    public GameObject obstaclePrefab;
+   [SerilizedField] public GameObject obstaclePrefab;
     //Spawn Position
     private Vector3 spawnPos = new Vector3(25.0f, 0.0f, 0.0f);
 
@@ -14,20 +13,23 @@ public class SpawnManager : MonoBehaviour
     //Spawn Rate
     private float spawnRate = 2.0f;
 
-    // Start is called before the first frame update
+    //Start is called before the first frame
     void Start()
     {
-        InvokeRepeating("SpawnObstacle", spawnDelay, spawnRate);
+        InvokeRepeating("SpawnRandomAnimal", startDelay, spawnInterval);
+        InvokeRepeating("spawnmethodName", startDelay, spawnInterval);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    private void SpawnObstacle()
-    {
-        Instantiate(obstaclePrefab, spawnPos, obstaclePrefab.transform.rotation);
+    change this string to match the name of the method that follows
+    private const string spawnmethodName = "SpawnRandomAnimal";
+    //Method to spawn animals
+    private void SpawnRandomAnimal()
+      {
+        // Choose a random number
+        int animalIndex = Random.Range(0, animalPrefabs.Length);
+        //Spawn Position
+        Vector3 spawnPosition = new Vector3(Random.Range(-spawnRangeX, spawnRangeX), 0.0f, spawnPosZ);
+        //Spawn Animal
+        Instantiate(animalPrefabs[animalIndex], spawnPosition, animalPrefabs[animalIndex].transform.rotation);
     }
 }
